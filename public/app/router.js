@@ -21,9 +21,9 @@ function(app, Page) {
       var page = new Page.Model({
         name: route
       });
-      layout.setViews(_.extend({
+      layout.setViews({
         '.body': new Page.Views.Simple({ model: page })
-      }, views));
+      });
 
       this.render();
     },

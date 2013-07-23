@@ -1,14 +1,10 @@
-define([
-  'helpers/live'
-],
+define(['jquery', 'backbone'],
 
-function(live) {
+function() {
 
   $.ajaxSetup({
     cache: false
   });
-
-  var root = embedded ? document.location.href.replace(/(index|main)\.html/, '') : '/';
 
   // Backbone global settings
   Backbone.Model.prototype.idAttribute = '_id';
@@ -17,14 +13,30 @@ function(live) {
     this.options = options || {};
   };
 
+  Backbone.View.prototype.serialize = function() {
+    var result = {
+      currentUser: app.user,
+      texts: app.texts
+    };
+    if(this.model) {
+      result.model = this.model.toJSON ? this.model.toJSON() : this.model;
+    }
+    if(this.collection && this.collection.toJSON) {
+      result.collection = this.collection.toJSON();
+    }
+    if(this.renderAttributes) {
+      result = _.extend(result, this.renderAttributes());
+    }
+    return result;
+  };
+
   var app = {
     name: 'My app',
     version: '1.0',
     el: '#main',
-    root: root,
-    baseUrl: root + 'api/v1/',
+    root: '/',
+    baseUrl: '/api/v1/',
     prefix: 'app/templates/',
-    live: live,
     switchLayout: function(oldLayout, newLayout) {
       var html = $('html'),
           old = $(app.el).find('> *').not(newLayout.el),
@@ -35,7 +47,8 @@ function(live) {
                 newLayout.$el.find('textarea, :text').not('.dummy, .feedback').first().focus();
               }),
               oldLayout && html.removeClass(oldLayout.options.classNames) && oldLayout.remove(),
-              old && old.remove()
+              old && old.remove(),
+              $(window).trigger('afterRender')
             ];
           };
 

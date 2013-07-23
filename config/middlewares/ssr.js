@@ -21,7 +21,7 @@ exports.ssr = function (public) {
     // create our 'document', don't load external stuff like google-analytics
     , document = jsdom(html, null, {
         features: {
-          SkipExternalResources: /(cloudfront\.net|google)/
+          SkipExternalResources: /(cloudfront\.net|google|less)/
         }
       })
     , window = document.createWindow(null, null, {

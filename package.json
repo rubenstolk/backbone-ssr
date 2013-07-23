@@ -15,6 +15,9 @@
   "dependencies": {
     "express": "latest",
     "express-namespace": "latest",
-    "forever": "latest"
+    "forever": "latest",
+    "jsdom": "latest",
+    "html5": "latest",
+    "xmlhttprequest": "latest"
   }
 }
