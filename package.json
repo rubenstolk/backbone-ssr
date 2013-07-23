@@ -19,5 +19,8 @@
     "jsdom": "latest",
     "html5": "latest",
     "xmlhttprequest": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest"
   }
 }
