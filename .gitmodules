@@ -1,0 +1,3 @@
+[submodule "public/app/boilerplate"]
+	path = public/app/boilerplate
+	url = git://github.com/changer/backbone-boilerplate.git
